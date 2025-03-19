@@ -1,0 +1,29 @@
+.range-slider input {
+    pointer-events: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    /*Chorme*/
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    border: 2px solid #f6339a;
+    background: #fff;
+    pointer-events: all;
+    appearance: none;
+    cursor: pointer;
+    box-shadow: 0 .125rem .5625rem -0.125rem rgba(0, 0, 0, 0.25);
+}
+
+input[type="range"]::-moz-range-thumb {
+    /*Fire fox*/
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    border: 2px solid #f6339a;
+    background: #fff;
+    pointer-events: all;
+    -moz-appearance: none;
+    cursor: pointer;
+    box-shadow: 0 .125rem .5625rem -0.125rem rgba(0, 0, 0, 0.25);
+}
