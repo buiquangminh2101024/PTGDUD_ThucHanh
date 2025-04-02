@@ -1,20 +1,36 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import { Link, NavLink, Routes, Route } from 'react-router-dom'
+import { Link, NavLink, Routes, Route, data } from 'react-router-dom'
+import axios from 'axios'
+import Logo from './assets/Logo.png'
+import CardOverview from './components/CardOverview'
 import './App.css'
 
 const nav = ['Dashboard', 'Project', 'Teams', 'Analytics', 'Messages', 'Integrations']
 
 function App() {
   const [selectedNav, setSelectedNav] = useState("Dashboard")
+  const [overviewData, setOverviewData] = useState()
+
+  useEffect(() => {
+    const fecthData = async () => {
+      try {
+        const respond = await axios.get('http://localhost:8000/overview')
+        setOverviewData(respond.data)
+      } catch (error) {
+        console.error('Lỗi khi lấy dữ liệu', error)
+      }
+    }
+    fecthData()
+  }, [])
 
   return (
     <>
       <div className='grid grid-cols-12 min-w-screen min-h-screen'>
         <div className='col-span-2 flex flex-col items-center px-4 py-6'>
           <div className='w-full h-[40px]'>
-            <img src="" alt="Lỗi hình ảnh" className='w-full h-full' />
+            <img src={Logo} alt="Lỗi hình ảnh" className='' />
           </div>
           <div className='w-full flex flex-col gap-3 items-center'>
             {
@@ -43,9 +59,9 @@ function App() {
           <div className='row-span-4 p-6 flex flex-col gap-4'>
             <div className='font-bold text-[20px]'>Overview</div>
             <div className='grid grid-cols-3 gap-5 flex-auto'>
-              <div className='rounded-lg bg-pink-200'>a</div>
-              <div className='rounded-lg bg-purple-200'>b</div>
-              <div className='rounded-lg bg-blue-200'>c</div>
+              {
+                overviewData?.map(i => <CardOverview key={i.id} data={i} />)
+              }
             </div>
           </div>
           <div className='row-span-7 px-6 flex flex-col items-center gap-6'>
