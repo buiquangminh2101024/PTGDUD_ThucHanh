@@ -38,3 +38,64 @@ const data = [
 app.get("/overview", (req, res) => {
     res.json(data);
 });
+
+const reportData = [
+    {
+        id: 1,
+        customerName: "Elizabeth Lee",
+        company: "AvatarSystems",
+        orderValue: 359,
+        orderDate: new Date(2023, 6, 10),
+        status: "New",
+        img: 0
+    },
+    {
+        id: 2,
+        customerName: "Carlos Garcia",
+        company: "SmoozeShift",
+        orderValue: 747,
+        orderDate: new Date(2023, 6, 24),
+        status: "New",
+        img: 1
+    },
+    {
+        id: 3,
+        customerName: "Elizabeth Balley",
+        company: "Prime Time Telecom",
+        orderValue: 564,
+        orderDate: new Date(2023, 7, 8),
+        status: "In-progress",
+        img: 2
+    },
+    {
+        id: 4,
+        customerName: "Ryan Brown",
+        company: "OmniTeach Corporation",
+        orderValue: 541,
+        orderDate: new Date(2023, 7, 31),
+        status: "In-progress",
+        img: 3
+    },
+    {
+        id: 5,
+        customerName: "Ryan Young",
+        company: "DataStram Inc.",
+        orderValue: 769,
+        orderDate: new Date(2023, 4, 1),
+        status: "Completed",
+        img: 4
+    },
+    {
+        id: 6,
+        customerName: "Hailey Adams",
+        company: "FlowRush",
+        orderValue: 922,
+        orderDate: new Date(2023, 5, 10),
+        status: "Completed",
+        img: 5
+    }
+]
+
+app.get("/report", (req, res) => {
+    res.json(reportData)
+})
