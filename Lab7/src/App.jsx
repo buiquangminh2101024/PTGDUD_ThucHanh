@@ -5,6 +5,7 @@ import { Link, NavLink, Routes, Route, data } from 'react-router-dom'
 import axios from 'axios'
 import Logo from './assets/Logo.png'
 import CardOverview from './components/CardOverview'
+import Table from './components/Table'
 import './App.css'
 
 const nav = ['Dashboard', 'Project', 'Teams', 'Analytics', 'Messages', 'Integrations']
@@ -12,12 +13,15 @@ const nav = ['Dashboard', 'Project', 'Teams', 'Analytics', 'Messages', 'Integrat
 function App() {
   const [selectedNav, setSelectedNav] = useState("Dashboard")
   const [overviewData, setOverviewData] = useState()
+  const [reportData, setReportData] = useState()
 
   useEffect(() => {
     const fecthData = async () => {
       try {
         const respond = await axios.get('http://localhost:8000/overview')
         setOverviewData(respond.data)
+        const respond1 = await axios.get('http://localhost:8000/report')
+        setReportData(respond1.data)
       } catch (error) {
         console.error('Lỗi khi lấy dữ liệu', error)
       }
@@ -27,7 +31,7 @@ function App() {
 
   return (
     <>
-      <div className='grid grid-cols-12 min-w-screen min-h-screen'>
+      <div className='grid grid-cols-12 min-h-screen'>
         <div className='col-span-2 flex flex-col items-center px-4 py-6'>
           <div className='w-full h-[40px]'>
             <img src={Logo} alt="Lỗi hình ảnh" className='' />
@@ -73,32 +77,7 @@ function App() {
               </div>
             </div>
             <div className='w-full'>
-              <table className='w-full'>
-                <thead>
-                  <tr>
-                    <th className='border-2'>a</th>
-                    <th className='border-2'>b</th>
-                    <th className='border-2'>c</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td className='border-2'>1</td>
-                    <td className='border-2'>1</td>
-                    <td className='border-2'>1</td>
-                  </tr>
-                  <tr>
-                    <td className='border-2'>2</td>
-                    <td className='border-2'>2</td>
-                    <td className='border-2'>2</td>
-                  </tr>
-                  <tr>
-                    <td className='border-2'>3</td>
-                    <td className='border-2'>3</td>
-                    <td className='border-2'>3</td>
-                  </tr>
-                </tbody>
-              </table>
+              <Table data={reportData} />
             </div>
           </div>
         </div>

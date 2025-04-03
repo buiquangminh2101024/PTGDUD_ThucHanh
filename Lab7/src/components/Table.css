@@ -1,0 +1,38 @@
+.clicked {
+    position: relative;
+    overflow: hidden;
+}
+
+.clicked::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+}
+
+.clicked:focus::after {
+    animation: spreadOut 500ms ease-in-out;
+}
+
+@keyframes spreadOut {
+    0%{
+        background: rgba(193, 193, 193, 0.5);
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+    }
+    30%{
+        background: rgba(193, 193, 193, 0.5);
+        transform: translate(-50%, -50%) scale(4);
+        opacity: 1;
+    }
+    100%{
+        background: rgba(193, 193, 193, 0.5);
+        transform: translate(-50%, -50%) scale(4);
+        opacity: 0;
+    }
+}
