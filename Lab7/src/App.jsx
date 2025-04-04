@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import { Link, NavLink, Routes, Route, data } from 'react-router-dom'
 import axios from 'axios'
 import Logo from './assets/Logo.png'
 import CardOverview from './components/CardOverview'
-import Table from './components/Table'
+import DetailedReport from './components/DetailedReport'
+import OtherPage from './components/OtherPage'
 import './App.css'
 
 const nav = ['Dashboard', 'Project', 'Teams', 'Analytics', 'Messages', 'Integrations']
@@ -42,7 +41,7 @@ function App() {
                 <NavLink
                   key={i}
                   className={({isActive}) => (`w-full rounded-lg h-[40px] text-[15px] font-bold px-6 py-1 flex items-center ${isActive? 'bg-pink-400 text-white': 'text-gray-400'}`)}
-                  to={`/${i}`}
+                  to={`/${i == 'Dashboard' ? '' : i}`}
                   onClick={event => setSelectedNav(i)}
                 >
                   {i}
@@ -69,16 +68,10 @@ function App() {
             </div>
           </div>
           <div className='row-span-7 px-6 flex flex-col items-center gap-6'>
-            <div className='flex items-center justify-between w-full'>
-              <div className='font-bold text-[20px]'>Detailed report</div>
-              <div className='flex gap-4'>
-                <button className='border-2 rounded-md border-pink-400 py-2 px-4 hover:cursor-pointer'>Import</button>
-                <button className='border-2 rounded-md border-pink-400 py-2 px-4 hover:cursor-pointer'>Export</button>
-              </div>
-            </div>
-            <div className='w-full'>
-              <Table data={reportData} />
-            </div>
+            <Routes>
+              <Route path='/' element={<DetailedReport data={reportData}/>}/>
+              <Route path='/:page' element={<OtherPage/>}/>
+            </Routes>
           </div>
         </div>
       </div>
