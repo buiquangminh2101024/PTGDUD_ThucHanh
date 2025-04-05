@@ -1,37 +1,29 @@
 import { useEffect, useState } from 'react'
-import { Link, NavLink, Routes, Route, data } from 'react-router-dom'
-import axios from 'axios'
+import { Link, NavLink, Routes, Route } from 'react-router-dom'
 import Logo from './assets/Logo.png'
 import CardOverview from './components/CardOverview'
 import DetailedReport from './components/DetailedReport'
 import OtherPage from './components/OtherPage'
+import { useSelector, useDispatch } from 'react-redux'
+import { fecthData } from './data/data'
 import './App.css'
 
 const nav = ['Dashboard', 'Project', 'Teams', 'Analytics', 'Messages', 'Integrations']
 
 function App() {
   const [selectedNav, setSelectedNav] = useState("Dashboard")
-  const [overviewData, setOverviewData] = useState()
-  const [reportData, setReportData] = useState()
+  const overviewData = useSelector(state => state.canShow.overviewData)
+  const reportData = useSelector(state => state.canShow.reportData)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    const fecthData = async () => {
-      try {
-        const respond = await axios.get('http://localhost:8000/overview')
-        setOverviewData(respond.data)
-        const respond1 = await axios.get('http://localhost:8000/report')
-        setReportData(respond1.data)
-      } catch (error) {
-        console.error('Lỗi khi lấy dữ liệu', error)
-      }
-    }
-    fecthData()
+    dispatch(fecthData())
   }, [])
 
   return (
     <>
       <div className='grid grid-cols-12 min-h-screen'>
-        <div className='col-span-2 flex flex-col items-center px-4 py-6'>
+        <div className='col-span-2 flex flex-col items-center px-4 py-6 border-e-[1px] border-gray-200'>
           <div className='w-full h-[40px]'>
             <img src={Logo} alt="Lỗi hình ảnh" className='' />
           </div>
@@ -55,7 +47,7 @@ function App() {
           </div>
         </div>
         <div className='col-span-10 grid grid-rows-12'>
-          <div className='row-span-1 flex items-center justify-between'>
+          <div className='row-span-1 px-6 flex items-center justify-between border-b-[1px] border-gray-200'>
             <div className='font-bold text-[20px] text-pink-500'>{selectedNav}</div>
             <div></div>
           </div>
