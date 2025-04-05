@@ -11,7 +11,7 @@ app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });
 
-const data = [
+var data = [
     {
         id: 1,
         title: 'Turnover',
@@ -39,13 +39,13 @@ app.get("/overview", (req, res) => {
     res.json(data);
 });
 
-const reportData = [
+var reportData = [
     {
         id: 1,
         customerName: "Elizabeth Lee",
         company: "AvatarSystems",
         orderValue: 359,
-        orderDate: new Date(2023, 6, 10),
+        orderDate: new Date(2023, 6, 10).toISOString(),
         status: "New",
         img: 0
     },
@@ -54,7 +54,7 @@ const reportData = [
         customerName: "Carlos Garcia",
         company: "SmoozeShift",
         orderValue: 747,
-        orderDate: new Date(2023, 6, 24),
+        orderDate: new Date(2023, 6, 24).toISOString(),
         status: "New",
         img: 1
     },
@@ -63,7 +63,7 @@ const reportData = [
         customerName: "Elizabeth Balley",
         company: "Prime Time Telecom",
         orderValue: 564,
-        orderDate: new Date(2023, 7, 8),
+        orderDate: new Date(2023, 7, 8).toISOString(),
         status: "In-progress",
         img: 2
     },
@@ -72,7 +72,7 @@ const reportData = [
         customerName: "Ryan Brown",
         company: "OmniTeach Corporation",
         orderValue: 541,
-        orderDate: new Date(2023, 7, 31),
+        orderDate: new Date(2023, 7, 31).toISOString(),
         status: "In-progress",
         img: 3
     },
@@ -81,7 +81,7 @@ const reportData = [
         customerName: "Ryan Young",
         company: "DataStram Inc.",
         orderValue: 769,
-        orderDate: new Date(2023, 4, 1),
+        orderDate: new Date(2023, 4, 1).toISOString(),
         status: "Completed",
         img: 4
     },
@@ -90,7 +90,7 @@ const reportData = [
         customerName: "Hailey Adams",
         company: "FlowRush",
         orderValue: 922,
-        orderDate: new Date(2023, 5, 10),
+        orderDate: new Date(2023, 5, 10).toISOString(),
         status: "Completed",
         img: 5
     }
@@ -98,4 +98,19 @@ const reportData = [
 
 app.get("/report", (req, res) => {
     res.json(reportData)
+})
+
+var lastUserEdited
+
+app.put("/editUser", (req, res) => {
+    console.log('BODY RECEIVED:', req.body)
+    lastUserEdited = req.body
+    // reportData = reportData.map(user => user.id == req.body.id ? { ...user, ...req.body } : user)
+    const index = reportData.findIndex(user => user.id == req.body.id)
+      reportData[index] = {...reportData[index], ...req.body}
+    res.json({ message: 'Ok' })
+})
+
+app.get("/editUser/lastEdit", (req, res) => {
+    res.json(lastUserEdited)
 })
