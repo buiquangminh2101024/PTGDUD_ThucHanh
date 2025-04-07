@@ -1,0 +1,56 @@
+[
+    {
+        "id": 1,
+        "customerName": "Elizabeth Lee",
+        "company": "AvatarSystems",
+        "orderValue": 359,
+        "orderDate": "2023-07-10T00:00:00.000Z",
+        "status": "New",
+        "img": "Avatar.png"
+    },
+    {
+        "id": 2,
+        "customerName": "Carlos Garcia",
+        "company": "SmoozeShift",
+        "orderValue": 747,
+        "orderDate": "2023-07-24T00:00:00.000Z",
+        "status": "New",
+        "img": "Avatar (1).png"
+    },
+    {
+        "id": 3,
+        "customerName": "Elizabeth Balley",
+        "company": "Prime Time Telecom",
+        "orderValue": 564,
+        "orderDate": "2023-08-08T00:00:00.000Z",
+        "status": "In-progress",
+        "img": "Avatar (2).png"
+    },
+    {
+        "id": 4,
+        "customerName": "Ryan Brown",
+        "company": "OmniTeach Corporation",
+        "orderValue": 541,
+        "orderDate": "2023-08-31T00:00:00.000Z",
+        "status": "In-progress",
+        "img": "Avatar (3).png"
+    },
+    {
+        "id": 5,
+        "customerName": "Ryan Young",
+        "company": "DataStram Inc.",
+        "orderValue": 769,
+        "orderDate": "2023-05-01T00:00:00.000Z",
+        "status": "Completed",
+        "img": "Avatar (4).png"
+    },
+    {
+        "id": 6,
+        "customerName": "Hailey Adams",
+        "company": "FlowRush",
+        "orderValue": 922,
+        "orderDate": "2023-06-10T00:00:00.000Z",
+        "status": "Completed",
+        "img": "Avatar (5).png"
+    }
+]
