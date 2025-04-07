@@ -71,7 +71,7 @@ function App() {
             <div className='flex gap-3'>
               <div className='flex bg-gray-100 items-center py-1 pe-3 rounded-lg w-[300px] h-[35px]'>
                 <img src={Search} alt="" className='w-[16px] h-[16px] mx-2' />
-                <input type="text" placeholder='Search...' className='outline-0' />
+                <input type="text" placeholder='Search...' className='outline-0 flex-auto' />
               </div>
               <button className='hover:cursor-pointer w-[24px] h-[25px]'><img src={Bell} alt="" className='w-full h-full' /></button>
               <button className='hover:cursor-pointer w-[24px] h-[25px]'><img src={Question} alt="" className='w-full h-full' /></button>
