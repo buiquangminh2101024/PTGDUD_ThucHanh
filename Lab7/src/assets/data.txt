@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "title": "Turnover",
+        "amount": 92405,
+        "periodOfChange": 5.39,
+        "backgroundColor": "bg-pink-200"
+    },
+    {
+        "id": 2,
+        "title": "Profit",
+        "amount": 32218,
+        "periodOfChange": 5.39,
+        "backgroundColor": "bg-purple-200"
+    },
+    {
+        "id": 3,
+        "title": "New customer",
+        "amount": 298,
+        "periodOfChange": 6.84,
+        "backgroundColor": "bg-blue-200"
+    }
+]

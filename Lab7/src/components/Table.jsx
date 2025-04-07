@@ -1,16 +1,8 @@
-import img1 from '../assets/Avatar.png'
-import img2 from '../assets/Avatar (1).png'
-import img3 from '../assets/Avatar (2).png'
-import img4 from '../assets/Avatar (3).png'
-import img5 from '../assets/Avatar (4).png'
-import img6 from '../assets/Avatar (5).png'
 import create from '../assets/create.png'
 import './Table.css'
 import { useState } from 'react'
 import EditUser from './EditUser'
 import Modal from './Modal'
-
-const reportImg = [img1, img2, img3, img4, img5, img6]
 
 const color = [
     {
@@ -77,7 +69,7 @@ const Table = ({ data }) => {
                                         </td>
                                         <td>
                                             <div className='flex items-center gap-4 font-bold'>
-                                                <img src={reportImg[i.img]} alt="" />
+                                                <img src={i.imgFile} alt="" className='w-[37px] h-[37px] rounded-full'/>
                                                 {i.customerName}
                                             </div>
                                         </td>

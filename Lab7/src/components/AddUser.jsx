@@ -1,20 +1,20 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import close from '../assets/close.svg'
 import { useDispatch } from 'react-redux'
-import { editUserAsync, fecthData } from '../data/data'
+import { addUserAsync } from '../data/data'
 
-const EditUser = ({ user, setCanShow }) => {
+const AddUser = ({ setCanShow }) => {
     const dispatch = useDispatch()
 
-    const[imgFile, setImgFile] = useState(user.imgFile)
-    const [img, setImg] = useState(user.img)
-    const [customerName, setCustomerName] = useState(user.customerName)
+    const[imgFile, setImgFile] = useState()
+    const [img, setImg] = useState()
+    const [customerName, setCustomerName] = useState()
     const [error1, setError1] = useState()
-    const [company, setCompany] = useState(user.company)
-    const [orderValue, setOrderValue] = useState(user.orderValue)
+    const [company, setCompany] = useState()
+    const [orderValue, setOrderValue] = useState()
     const [error3, setError3] = useState()
-    const [orderDate, setOrderDate] = useState(user.orderDate.split('T')[0])
-    const [status, setStatus] = useState(user.status)
+    const [orderDate, setOrderDate] = useState(new Date().toISOString().split('T')[0])
+    const [status, setStatus] = useState("New")
 
     const handlingImg = (img) => {
         const splitPath = img.value.split('.')
@@ -50,19 +50,18 @@ const EditUser = ({ user, setCanShow }) => {
         return false
     }
 
-    const handlingEdit = () => {
+    const handlingAdd = () => {
         if (!handlingFloat(orderValue) || !handlingName(customerName)) {
             return
         }
         const date = orderDate.split('-')
-        const i = img.match('cachedImg')? `${img}` : `cachedImg/${img}`
-        dispatch(editUserAsync({ id: user.id, customerName: customerName, company: company, orderValue: parseFloat(orderValue), orderDate: new Date(Date.UTC(date[0], date[1] - 1, date[2])).toISOString(), status: status, img: i }, imgFile))
+        dispatch(addUserAsync({ customerName: customerName, company: company, orderValue: parseFloat(orderValue), orderDate: new Date(Date.UTC(date[0], date[1] - 1, date[2])).toISOString(), status: status, img: `cachedImg/${img}` }, imgFile))
     }
 
     return (
         <div className="w-full h-full p-4 flex flex-col">
             <div className="h-[40px] w-full flex items-center justify-between">
-                <div className="font-bold text-[20px]">Sửa thông tin: {user.customerName}</div>
+                <div className="font-bold text-[20px]">Thêm thông tin:</div>
                 <div>
                     <img src={close} alt="" className='hover:cursor-pointer hover:bg-pink-400 rounded-full' onClick={event => setCanShow(false)} />
                 </div>
@@ -70,7 +69,7 @@ const EditUser = ({ user, setCanShow }) => {
             <div className="flex-auto w-full">
                 <form action="" className='w-full h-full pt-6' onSubmit={event => {
                     event.preventDefault()
-                    handlingEdit()
+                    handlingAdd()
                     setCanShow(false)
                     }}>
                     <div className='w-full grid grid-cols-2 gap-4'>
@@ -112,7 +111,7 @@ const EditUser = ({ user, setCanShow }) => {
             <div className="h-[40px] w-full flex items-center justify-end">
                 <button className='border-2 p-2 rounded-xl hover:cursor-pointer border-pink-400 text-pink-400 hover:bg-pink-400 hover:text-white'
                     onClick={event => {
-                        handlingEdit()
+                        handlingAdd()
                         setCanShow(false)
                     }}
                 >
@@ -123,4 +122,4 @@ const EditUser = ({ user, setCanShow }) => {
     )
 }
 
-export default EditUser
+export default AddUser
