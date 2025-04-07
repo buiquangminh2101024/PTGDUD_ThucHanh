@@ -3,6 +3,9 @@ import Table from './Table'
 import Modal from './Modal'
 import AddUser from './AddUser'
 import { useRef, useState } from 'react'
+import Download from '../assets/Download.png'
+import MoveUp from '../assets/Move up.png'
+import File from '../assets/File text 1.png'
 
 const DetailedReport = ({ data }) => {
     const pageName = useParams()
@@ -16,14 +19,17 @@ const DetailedReport = ({ data }) => {
     const currentUsers = data.slice(indexOfFirstUser,
         indexOfLastUser);
 
-    const buttoncss = 'border-2 rounded-md border-pink-400 py-2 px-4 hover:cursor-pointer text-pink-400 hover:bg-pink-400 hover:text-white'
+    const buttoncss = 'border-2 rounded-md border-pink-400 py-2 px-4 hover:cursor-pointer text-pink-400 hover:bg-pink-400 hover:text-white flex gap-2 items-center'
     return (
         <>
             <div className='flex items-center justify-between w-full'>
-                <div className='font-bold text-[20px]'>Detailed report</div>
+                <div className='font-bold text-[20px] flex items-center gap-2'>
+                    <div><img src={File} alt="" className='w-[25px] h-[25px]'/></div>
+                    Detailed report
+                </div>
                 <div className='flex gap-4'>
-                    <button className={buttoncss}>Import</button>
-                    <button className={buttoncss}>Export</button>
+                    <button className={buttoncss}><img src={Download} alt="" />Import</button>
+                    <button className={buttoncss}><img src={MoveUp} alt="" />Export</button>
                     <button className={buttoncss} onClick={event => setCanShow(true)}>Add user</button>
                 </div>
             </div>
