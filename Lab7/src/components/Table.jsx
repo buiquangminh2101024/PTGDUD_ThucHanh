@@ -78,7 +78,7 @@ const Table = ({ data }) => {
                                         <td className='text-gray-500'>{date.getDate()}/{date.getMonth() + 1}/{date.getFullYear()}</td>
                                         <td>
                                             <div className='flex items-center justify-center h-full'>
-                                                <div className={`rounded-full w-fit text-center p-1 ${statusColor[0]} ${statusColor[1]}`}>{i.status}</div>
+                                                <div className={`rounded-full w-fit text-center py-1 px-2 ${statusColor[0]} ${statusColor[1]}`}>{i.status}</div>
                                             </div>
                                         </td>
                                         <td>
