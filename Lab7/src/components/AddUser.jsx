@@ -52,10 +52,11 @@ const AddUser = ({ setCanShow }) => {
 
     const handlingAdd = () => {
         if (!handlingFloat(orderValue) || !handlingName(customerName)) {
-            return
+            return false
         }
         const date = orderDate.split('-')
         dispatch(addUserAsync({ customerName: customerName, company: company, orderValue: parseFloat(orderValue), orderDate: new Date(Date.UTC(date[0], date[1] - 1, date[2])).toISOString(), status: status, img: `cachedImg/${img}` }, imgFile))
+        return true
     }
 
     return (
@@ -69,8 +70,8 @@ const AddUser = ({ setCanShow }) => {
             <div className="flex-auto w-full">
                 <form action="" className='w-full h-full pt-6' onSubmit={event => {
                     event.preventDefault()
-                    handlingAdd()
-                    setCanShow(false)
+                    if(handlingAdd())
+                        setCanShow(false)
                     }}>
                     <div className='w-full grid grid-cols-2 gap-4'>
                     Ảnh đại diện:
@@ -111,8 +112,8 @@ const AddUser = ({ setCanShow }) => {
             <div className="h-[40px] w-full flex items-center justify-end">
                 <button className='border-2 p-2 rounded-xl hover:cursor-pointer border-pink-400 text-pink-400 hover:bg-pink-400 hover:text-white'
                     onClick={event => {
-                        handlingAdd()
-                        setCanShow(false)
+                        if(handlingAdd())
+                            setCanShow(false)
                     }}
                 >
                     Thay đổi

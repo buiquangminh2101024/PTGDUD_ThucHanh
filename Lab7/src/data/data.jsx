@@ -1,6 +1,23 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 import axios from 'axios'
 
+const urlLan = `http://192.168.1.2:8000`
+let canLan = false
+const urlPublic = `https://843z3mcs-8000.asse.devtunnels.ms`
+let canPublic = false
+try {
+  const result = axios.get('http://192.168.1.2:8000/overview/overview')
+  canLan = true
+} catch (error) {
+  console.error("Không lấy được từ lan")
+}
+try {
+  const result = axios.get(`${urlPublic}/overview`)
+  canPublic = true
+} catch (error) {
+  console.error("Không lấy được từ public")
+}
+
 const blobFromObjectURL = async (objectURL) => {
   const response = await fetch(objectURL);
   const blob = await response.blob();
@@ -20,9 +37,10 @@ const toForm = async (user, imgURL) => {
 }
 
 export const editUserAsync = (user, imgURL) => async (dispatch) => {
+  const url = `${canPublic? urlPublic: canLan? urlLan : 'http://localhost:8000'}/editUser`
   try {
     const formData = await toForm(user, imgURL)
-    const result = await axios.put('http://localhost:8000/editUser', formData, {
+    const result = await axios.put(url, formData, {
       headers: {
         "Content-Type": "multipart/form-data" // Để gửi FormData
       }
@@ -34,9 +52,10 @@ export const editUserAsync = (user, imgURL) => async (dispatch) => {
 };
 
 export const addUserAsync = (user, imgURL) => async (dispatch) => {
+  const url = `${canPublic? urlPublic: canLan? urlLan : 'http://localhost:8000'}/addUser`
   try {
     const formData = await toForm(user, imgURL)
-    const result = await axios.post('http://localhost:8000/addUser', formData, {
+    const result = await axios.post(url, formData, {
       headers: {
         "Content-Type": "multipart/form-data" // Để gửi FormData
       }
@@ -76,13 +95,14 @@ export const store = configureStore({
 })
 
 export const fecthData = () => async (dispatch) => {
+  const url = `${canPublic? urlPublic: canLan? urlLan : 'http://localhost:8000'}`
   try {
-    const respond = await axios.get('http://localhost:8000/overview')
+    const respond = await axios.get(`${url}/overview`)
     dispatch(setOverviewData(respond.data))
 
-    var respond1 = await axios.get('http://localhost:8000/report')
+    var respond1 = await axios.get(`${url}/report`)
     const reportList = await Promise.all(respond1.data.map(async (i) => {
-      const rpd = await axios.get(`http://localhost:8000/report/images/${i.img}`, { responseType: "blob" })
+      const rpd = await axios.get(`${url}/report/images/${i.img}`, { responseType: "blob" })
       const imgUrl = rpd.data;
       return { ...i, imgFile: URL.createObjectURL(imgUrl) };
     }));
@@ -93,9 +113,10 @@ export const fecthData = () => async (dispatch) => {
 }
 
 export const fecthLastEditedUser = () => async (dispatch) => {
+  const url = `${canPublic? urlPublic: canLan? urlLan : 'http://localhost:8000'}`
   try {
-    const respond = await axios.get('http://localhost:8000/editUser/lastEdit')
-    const imgFile = await axios.get(`http://localhost:8000/report/images/${respond.data.img}`, { responseType: "blob" })
+    const respond = await axios.get(`${url}/editUser/lastEdit`)
+    const imgFile = await axios.get(`${url}/report/images/${respond.data.img}`, { responseType: "blob" })
     dispatch(editUser({ ...respond.data, imgFile: URL.createObjectURL(imgFile.data) }))
   } catch (error) {
     console.error('Lỗi khi lấy dữ liệu', error)
@@ -103,9 +124,10 @@ export const fecthLastEditedUser = () => async (dispatch) => {
 }
 
 export const fecthLastAddedUser = () => async (dispatch) => {
+  const url = `${canPublic? urlPublic: canLan? urlLan : 'http://localhost:8000'}`
   try {
-    const respond = await axios.get('http://localhost:8000/addUser/lastAdd')
-    const imgFile = await axios.get(`http://localhost:8000/report/images/${respond.data.img}`, { responseType: "blob" })
+    const respond = await axios.get(`${url}/addUser/lastAdd`)
+    const imgFile = await axios.get(`${url}/report/images/${respond.data.img}`, { responseType: "blob" })
     dispatch(addUser({ ...respond.data, imgFile: URL.createObjectURL(imgFile.data) }))
   } catch (error) {
     console.error('Lỗi khi lấy dữ liệu', error)
